@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Product.API.Services;
 using Product.Application.Services;
 using Product.Infrastructure.Contexts;
 using Product.Infrastructure.Repository;
@@ -16,7 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     ));
 
 builder.Services.AddControllers();
-
+builder.Services.AddGrpc();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -61,19 +62,7 @@ builder.Services.AddAuthentication(
 
     options.RequireHttpsMetadata = false;
 
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        // Accept the issuer both with and without a trailing slash
-        ValidIssuers = new[]
-        {
-            "https://localhost:7281/",
-            "https://localhost:7281"
-        },
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["Authentication:Audience"],
-        ValidateLifetime = true
-    };
+ 
 });
 
 builder.Services.AddAuthorization();
@@ -93,5 +82,5 @@ app.UseAuthentication();   // Must come before UseAuthorization
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapGrpcService<ProductGrpcService>();
 app.Run();

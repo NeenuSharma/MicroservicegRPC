@@ -16,5 +16,9 @@ namespace Product.Application.Services
         {
             return await _repository.GetAllAsync();
         }
+        public async Task<ProductData?> GetByIdAsync(int id)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
     }
 }

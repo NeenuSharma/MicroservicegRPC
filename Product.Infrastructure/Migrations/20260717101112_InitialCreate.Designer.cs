@@ -11,7 +11,7 @@ using Product.Infrastructure.Contexts;
 namespace Product.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260714065202_InitialCreate")]
+    [Migration("20260717101112_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

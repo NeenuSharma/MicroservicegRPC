@@ -66,8 +66,9 @@ public class AuthService : IAuthService
 
         // Set the audience so the issued token's "aud" claim matches
         // the Audience expected by Product.API ("product-api").
-        principal.SetResources("product-api");
-
+        principal.SetResources(
+            "product-api",
+            "order-api");
         return principal;
     }
 }
